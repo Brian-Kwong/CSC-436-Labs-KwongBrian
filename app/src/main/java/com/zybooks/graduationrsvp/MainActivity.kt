@@ -33,6 +33,7 @@ class MainActivity : ComponentActivity() {
 fun GradScreen(modifier: Modifier = Modifier) {
     Text(
         text = "Graduation Announcement",
+        fontSize = 50.sp,
         modifier = modifier
     )
 }
