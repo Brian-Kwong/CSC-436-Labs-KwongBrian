@@ -72,7 +72,6 @@ fun GradScreen(modifier: Modifier = Modifier) {
             contentDescription = null,
             alpha = 0.3F
         )
-        RSVPButton()
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 imageVector = Icons.Filled.Info,
@@ -85,6 +84,7 @@ fun GradScreen(modifier: Modifier = Modifier) {
                 fontSize = 20.sp
             )
         }
+        RSVPButton()
     }
 }
 
