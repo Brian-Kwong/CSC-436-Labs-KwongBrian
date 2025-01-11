@@ -30,10 +30,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.zybooks.pizzaparty.ui.theme.PizzaPartyTheme
 import kotlin.math.ceil
+import android.util.Log
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("MainActivity", "onCreate was called")
         setContent {
             PizzaPartyTheme {
                 Surface(
@@ -49,7 +51,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun PizzaPartyScreen(modifier: Modifier = Modifier) {
-    val totalPizzas by remember { mutableIntStateOf(0) }
+    var totalPizzas by remember { mutableIntStateOf(0) }
     var numPeopleInput   by remember { mutableStateOf("") }
     var hungerLevel by remember { mutableStateOf("Medium") }
 
@@ -81,7 +83,7 @@ fun PizzaPartyScreen(modifier: Modifier = Modifier) {
         )
         Button(
             onClick = {
-                // Not implemented yet
+                totalPizzas = calculateNumPizzas(numPeopleInput.toInt(), hungerLevel)
             },
             modifier = modifier.fillMaxWidth()
         ) {
