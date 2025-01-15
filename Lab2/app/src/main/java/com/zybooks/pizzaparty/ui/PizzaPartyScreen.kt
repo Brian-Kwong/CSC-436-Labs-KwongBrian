@@ -1,5 +1,6 @@
 package com.zybooks.pizzaparty.ui
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,28 +28,62 @@ fun PizzaPartyScreen(
     modifier: Modifier = Modifier,
     partyViewModel: PizzaPartyViewModel = viewModel()
 ) {
-    Column(
-    modifier = modifier.padding(10.dp)
-    ) {
-        AppTitle(modifier)
-        PartySize(
-            numPeopleInput = partyViewModel.numPeopleInput,
-            onValueChange = { partyViewModel.numPeopleInput = it },
-            modifier = modifier
-        )
-        HungerLevelSelection(
-            hungerLevel = partyViewModel.hungerLevel,
-            onSelected = { partyViewModel.hungerLevel = it },
-            modifier = modifier
-        )
-        TotalPizzas(
-            totalPizzas = partyViewModel.totalPizzas,
-            modifier = modifier
-        )
-        CalculateButton(
-            onClick = { partyViewModel.calculateNumPizzas() },
-            modifier = modifier
-        )
+    val config = LocalConfiguration.current
+    if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
+        Column(
+            modifier = modifier.padding(10.dp)
+        ) {
+            AppTitle(modifier)
+            PartySize(
+                numPeopleInput = partyViewModel.numPeopleInput,
+                onValueChange = { partyViewModel.numPeopleInput = it },
+                modifier = modifier
+            )
+            HungerLevelSelection(
+                hungerLevel = partyViewModel.hungerLevel,
+                onSelected = { partyViewModel.hungerLevel = it },
+                modifier = modifier
+            )
+            TotalPizzas(
+                totalPizzas = partyViewModel.totalPizzas,
+                modifier = modifier
+            )
+            CalculateButton(
+                onClick = { partyViewModel.calculateNumPizzas() },
+                modifier = modifier
+            )
+        }
+    }
+    else { // Configuration.ORIENTATION_LANDSCAPE
+        Row {
+            Column(
+                modifier = modifier.padding(10.dp).weight(1f)
+            ) {
+                AppTitle(modifier)
+                PartySize(
+                    numPeopleInput = partyViewModel.numPeopleInput,
+                    onValueChange = { partyViewModel.numPeopleInput = it },
+                    modifier = modifier
+                )
+                HungerLevelSelection(
+                    hungerLevel = partyViewModel.hungerLevel,
+                    onSelected = { partyViewModel.hungerLevel = it },
+                    modifier = modifier
+                )
+            }
+            Column(
+                modifier = modifier.padding(10.dp).weight(1f)
+            ) {
+                TotalPizzas(
+                    totalPizzas = partyViewModel.totalPizzas,
+                    modifier = modifier
+                )
+                CalculateButton(
+                    onClick = { partyViewModel.calculateNumPizzas() },
+                    modifier = modifier
+                )
+            }
+        }
     }
 }
 
