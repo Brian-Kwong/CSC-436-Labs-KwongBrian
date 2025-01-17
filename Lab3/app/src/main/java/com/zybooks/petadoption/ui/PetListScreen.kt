@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zybooks.petadoption.data.Pet
 import com.zybooks.petadoption.data.PetDataSource
 import com.zybooks.petadoption.ui.theme.PetAdoptionTheme
@@ -32,7 +33,8 @@ fun PreviewListScreen() {
 fun ListScreen(
     petList: List<Pet>,
     onImageClick: (Pet) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: ListViewModel = viewModel()
 ) {
     Scaffold(
         topBar = {
@@ -46,7 +48,7 @@ fun ListScreen(
             contentPadding = PaddingValues(0.dp),
             modifier = modifier.padding(innerPadding)
         ) {
-            items(petList) { pet ->
+            items(viewModel.petList) { pet ->
                 Image(
                     painter = painterResource(id = pet.imageId),
                     contentDescription = "${pet.type} ${pet.gender}",

@@ -19,16 +19,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.zybooks.petadoption.data.Pet
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.zybooks.petadoption.data.PetDataSource
 import com.zybooks.petadoption.ui.theme.PetAdoptionTheme
 
 @Composable
 fun AdoptScreen(
-    pet: Pet,
+    petId: Int,
     modifier: Modifier = Modifier,
+    viewModel: AdoptViewModel = viewModel(),
     onUpClick: () -> Unit = { }
 ) {
+    val pet = viewModel.getPet(petId)
     Scaffold(
         topBar = {
             PetAppBar(
@@ -74,6 +76,6 @@ fun AdoptScreen(
 fun PreviewAdoptScreen() {
     val pet = PetDataSource().loadPets()[0]
     PetAdoptionTheme {
-        AdoptScreen(pet)
+        AdoptScreen(pet.id)
     }
 }

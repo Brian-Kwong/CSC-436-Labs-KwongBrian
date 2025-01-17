@@ -39,19 +39,18 @@ fun PetApp(
         }
         composable<Routes.Detail> {
             DetailScreen(
-                pet = petViewModel.selectedPet,
+                petId = petViewModel.selectedPet.id,
                 onAdoptClick = {
                     navController.navigate(Routes.Adopt)
                 },
                 onUpClick = {
                     navController.navigateUp()
-                }
-
+                },
             )
         }
         composable<Routes.Adopt> {
             AdoptScreen(
-                pet = petViewModel.selectedPet,
+                petId = petViewModel.selectedPet.id,
                 onUpClick = {
                     navController.navigateUp()
                 }
