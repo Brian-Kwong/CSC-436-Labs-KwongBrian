@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,6 +32,8 @@ fun AdoptScreen(
     onUpClick: () -> Unit = { }
 ) {
     val pet = viewModel.getPet(petId)
+    val context = LocalContext.current
+
     Scaffold(
         topBar = {
             PetAppBar(
@@ -61,7 +64,7 @@ fun AdoptScreen(
                 modifier = modifier.padding(6.dp),
             )
             Button(
-                onClick = { },
+                onClick = { shareAdoption(context, pet) },
                 modifier = modifier.padding(6.dp)
             ) {
                 Icon(Icons.Default.Share, null)
