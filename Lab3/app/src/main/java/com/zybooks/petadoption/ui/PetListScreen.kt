@@ -23,7 +23,6 @@ import com.zybooks.petadoption.ui.theme.PetAdoptionTheme
 fun PreviewListScreen() {
     PetAdoptionTheme {
         ListScreen(
-            petList = PetDataSource().loadPets(),
             onImageClick = { }
         )
     }
@@ -31,7 +30,6 @@ fun PreviewListScreen() {
 
 @Composable
 fun ListScreen(
-    petList: List<Pet>,
     onImageClick: (Pet) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ListViewModel = viewModel()

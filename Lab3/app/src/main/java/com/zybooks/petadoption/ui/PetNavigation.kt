@@ -1,10 +1,10 @@
 package com.zybooks.petadoption.ui
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import kotlinx.serialization.Serializable
 
 sealed class Routes {
@@ -12,16 +12,18 @@ sealed class Routes {
     data object List
 
     @Serializable
-    data object Detail
+    data class Detail(
+        val petId: Int
+    )
 
     @Serializable
-    data object Adopt
+    data class Adopt(
+        val petId: Int
+    )
 }
 
 @Composable
-fun PetApp(
-    petViewModel: PetViewModel = viewModel()
-) {
+fun PetApp() {
     val navController = rememberNavController()
 
     NavHost(
@@ -30,27 +32,33 @@ fun PetApp(
     ) {
         composable<Routes.List> {
             ListScreen(
-                petList = petViewModel.petList,
                 onImageClick = { pet ->
-                    petViewModel.selectedPet = pet
-                    navController.navigate(Routes.Detail)
-                },
+                    navController.navigate(
+                        Routes.Detail(pet.id)
+                    )
+                }
             )
         }
-        composable<Routes.Detail> {
+        composable<Routes.Detail> { backstackEntry ->
+            val details: Routes.Detail = backstackEntry.toRoute()
+
             DetailScreen(
-                petId = petViewModel.selectedPet.id,
+                petId = details.petId,
                 onAdoptClick = {
-                    navController.navigate(Routes.Adopt)
+                    navController.navigate(
+                        Routes.Adopt(details.petId)
+                    )
                 },
                 onUpClick = {
                     navController.navigateUp()
-                },
+                }
             )
         }
-        composable<Routes.Adopt> {
+        composable<Routes.Adopt> { backstackEntry ->
+            val adopt: Routes.Adopt = backstackEntry.toRoute()
+
             AdoptScreen(
-                petId = petViewModel.selectedPet.id,
+                petId = adopt.petId,
                 onUpClick = {
                     navController.navigateUp()
                 }
