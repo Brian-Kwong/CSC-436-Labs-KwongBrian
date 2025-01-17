@@ -34,7 +34,7 @@ fun PetApp(
                 onImageClick = { pet ->
                     petViewModel.selectedPet = pet
                     navController.navigate(Routes.Detail)
-                }
+                },
             )
         }
         composable<Routes.Detail> {
@@ -43,11 +43,18 @@ fun PetApp(
                 onAdoptClick = {
                     navController.navigate(Routes.Adopt)
                 },
+                onUpClick = {
+                    navController.navigateUp()
+                }
+
             )
         }
         composable<Routes.Adopt> {
             AdoptScreen(
                 pet = petViewModel.selectedPet,
+                onUpClick = {
+                    navController.navigateUp()
+                }
             )
         }
     }

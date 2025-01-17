@@ -33,6 +33,8 @@ fun AdoptScreen(
         topBar = {
             PetAppBar(
                 title = "Thank You!",
+                canNavigateBack = true,
+                onUpClick = onUpClick
             )
         }
     ) { innerPadding ->

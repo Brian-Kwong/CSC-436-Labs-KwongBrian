@@ -35,6 +35,8 @@ fun DetailScreen(
         topBar = {
             PetAppBar(
                 title = "Details",
+                canNavigateBack = true,
+                onUpClick = onUpClick
             )
         }
     ) { innerPadding ->
